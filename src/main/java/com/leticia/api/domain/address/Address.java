@@ -16,6 +16,8 @@ public class Address {
 
     private String zipCode;
 
+    private String district;
+
     private String street;
 
     private String state;
@@ -31,14 +33,23 @@ public class Address {
     public Address() {
     }
 
-    public Address(UUID id, String zipCode, String street, String state, String city, String complement, User user) {
+    public Address(UUID id, String zipCode, String district, String street, String state, String city, String complement, User user) {
         this.id = id;
         this.zipCode = zipCode;
+        this.district = district;
         this.street = street;
         this.state = state;
         this.city = city;
         this.complement = complement;
         this.user = user;
+    }
+
+    public String getDistrict() {
+        return district;
+    }
+
+    public void setDistrict(String district) {
+        this.district = district;
     }
 
     public UUID getId() {

@@ -1,0 +1,1 @@
+ALTER TABLE users ADD cpf CHAR(11) NOT NULL;
