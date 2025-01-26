@@ -1,8 +1,8 @@
 package com.leticia.api.domain.address;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.leticia.api.domain.user.User;
-
 import javax.persistence.*;
 import java.util.UUID;
 
@@ -14,6 +14,7 @@ public class Address {
     @GeneratedValue
     private UUID id;
 
+    @Column(name = "zip_code")
     private String zipCode;
 
     private String district;
@@ -27,7 +28,8 @@ public class Address {
     private String complement;
 
     @OneToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", nullable = false)
+    @JsonBackReference
     private User user;
 
     public Address() {
@@ -35,21 +37,13 @@ public class Address {
 
     public Address(UUID id, String zipCode, String district, String street, String state, String city, String complement, User user) {
         this.id = id;
-        this.zipCode = zipCode;
+        this.zipCode= zipCode;
         this.district = district;
         this.street = street;
         this.state = state;
         this.city = city;
         this.complement = complement;
         this.user = user;
-    }
-
-    public String getDistrict() {
-        return district;
-    }
-
-    public void setDistrict(String district) {
-        this.district = district;
     }
 
     public UUID getId() {
@@ -66,6 +60,14 @@ public class Address {
 
     public void setZipCode(String zipCode) {
         this.zipCode = zipCode;
+    }
+
+    public String getDistrict() {
+        return district;
+    }
+
+    public void setDistrict(String district) {
+        this.district = district;
     }
 
     public String getStreet() {

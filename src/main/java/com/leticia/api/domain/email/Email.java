@@ -1,6 +1,8 @@
 package com.leticia.api.domain.email;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.leticia.api.domain.user.User;
+
 
 import javax.persistence.*;
 import java.util.UUID;
@@ -16,7 +18,8 @@ public class Email {
     private String email;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", nullable = false)
+    @JsonBackReference
     private User user;
 
     public Email() {

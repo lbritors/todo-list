@@ -1,6 +1,8 @@
 package com.leticia.api.domain.phone;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.leticia.api.domain.user.User;
+
 
 import javax.persistence.*;
 import java.util.UUID;
@@ -13,14 +15,25 @@ public class Phone {
     @GeneratedValue
     private UUID id;
 
-    private String number;
+    private String phone;
 
     @Enumerated(EnumType.STRING)
     private PhoneType type;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", nullable = false)
+    @JsonBackReference
     private User user;
+
+    public Phone() {
+    }
+
+    public Phone(UUID id, String phone, PhoneType type, User user) {
+        this.id = id;
+        this.phone = phone;
+        this.type = type;
+        this.user = user;
+    }
 
     public UUID getId() {
         return id;
@@ -30,12 +43,12 @@ public class Phone {
         this.id = id;
     }
 
-    public String getNumber() {
-        return number;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setNumber(String number) {
-        this.number = number;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public PhoneType getType() {
@@ -51,16 +64,6 @@ public class Phone {
     }
 
     public void setUser(User user) {
-        this.user = user;
-    }
-
-    public Phone() {
-    }
-
-    public Phone(UUID id, String number, PhoneType type, User user) {
-        this.id = id;
-        this.number = number;
-        this.type = type;
         this.user = user;
     }
 }

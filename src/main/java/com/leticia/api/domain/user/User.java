@@ -1,10 +1,13 @@
 package com.leticia.api.domain.user;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import java.util.Date;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.leticia.api.domain.address.Address;
+import com.leticia.api.domain.email.Email;
+import com.leticia.api.domain.phone.Phone;
+
+
+import javax.persistence.*;
+import java.util.List;
 import java.util.UUID;
 
 @Table(name = "users")
@@ -16,14 +19,6 @@ public class User {
 
     private String name;
 
-    public String getCpf() {
-        return cpf;
-    }
-
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
-    }
-
     private String cpf;
 
     private String password;
@@ -31,16 +26,40 @@ public class User {
     private Boolean admin;
 
 
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private Address address;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<Email> email;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<Phone> phone;
+
 
     public User() {
     }
 
-    public User(UUID id, String name, String cpf, String password, Boolean admin) {
+    public User(String name, String cpf, String password, Boolean admin, Address address, List<Email> email, List<Phone> phone) {
+        this.name = name;
+        this.cpf = cpf;
+        this.password = password;
+        this.admin = admin;
+        this.address = address;
+        this.email = email;
+        this.phone = phone;
+    }
+    public User(UUID id, String name, String cpf, String password, Boolean admin, Address address, List<Email> email, List<Phone> phone) {
         this.id = id;
         this.name = name;
         this.cpf = cpf;
         this.password = password;
         this.admin = admin;
+        this.address = address;
+        this.email = email;
+        this.phone = phone;
     }
 
     public UUID getId() {
@@ -59,6 +78,14 @@ public class User {
         this.name = name;
     }
 
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
     public String getPassword() {
         return password;
     }
@@ -75,5 +102,27 @@ public class User {
         this.admin = admin;
     }
 
+    public Address getAddress() {
+        return address;
+    }
 
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    public List<Email> getEmail() {
+        return email;
+    }
+
+    public void setEmail(List<Email> email) {
+        this.email = email;
+    }
+
+    public List<Phone> getPhone() {
+        return phone;
+    }
+
+    public void setPhone(List<Phone> phone) {
+        this.phone = phone;
+    }
 }
