@@ -35,6 +35,11 @@ public class Phone {
         this.user = user;
     }
 
+    public Phone(String phone, PhoneType type) {
+        this.phone = phone;
+        this.type = type;
+    }
+
     public UUID getId() {
         return id;
     }

@@ -46,6 +46,14 @@ public class Address {
         this.user = user;
     }
 
+    public Address(String city, String state, String street, String district, String zipCode) {
+        this.city = city;
+        this.state = state;
+        this.street = street;
+        this.district = district;
+        this.zipCode = zipCode;
+    }
+
     public UUID getId() {
         return id;
     }

@@ -14,8 +14,9 @@ public class PhoneService {
     @Autowired
     private PhoneRepository phoneRepository;
 
-    public Phone createPhone(CreatePhoneDTO data) {
+    public Phone createPhone(List<CreatePhoneDTO> data) {
         return null;
+
     }
 
     public void normalizePhoneTypes(Phone phone) {

@@ -1,6 +1,7 @@
 package com.leticia.api.domain.address;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import java.util.UUID;
 
 public class CreateAddressDTO {
 
@@ -14,7 +15,7 @@ public class CreateAddressDTO {
     private final String city;
 
     @NotNull
-    @Pattern( regexp = "\\d{8}")
+    @Pattern( regexp = "^\\d{8}$")
     private final String zipCode;
 
     @NotNull
@@ -36,7 +37,7 @@ public class CreateAddressDTO {
     }
 
 
-    public Long getUserId() {
+    public UUID getUserId() {
         return userId;
     }
 

@@ -1,44 +1,49 @@
 package com.leticia.api.domain.user;
 
 import com.leticia.api.domain.address.Address;
+import com.leticia.api.domain.address.CreateAddressDTO;
+import com.leticia.api.domain.email.CreateEmailDTO;
 import com.leticia.api.domain.email.Email;
+import com.leticia.api.domain.phone.CreatePhoneDTO;
 import com.leticia.api.domain.phone.Phone;
+import org.hibernate.validator.constraints.br.CPF;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
+import javax.validation.Valid;
+import javax.validation.constraints.*;
 import java.util.List;
 
 public class CreateUserDTO {
 
     @NotNull
-    @Min(3)
-    @Max(100)
+    @Size(min = 3, max = 100)
     @Pattern(regexp = "^[a-zA-ZÀ-ÿ0-9\\s]+$")
     private final String name;
 
     @NotNull
-    @Pattern(regexp = "\\d{11}")
+    @Pattern(regexp = "^\\d{11}$")
+    @CPF()
     private final String cpf;
 
     @NotNull
-    @Min(6)
+    @Size(min = 6, max = 100)
     private final String password;
 
     @NotNull
-    private final Address address;
+    @Valid
+    private final CreateAddressDTO address;
 
     @NotNull
-    private final List<Email> email;
+    @Valid
+    private final List<CreateEmailDTO> email;
 
     @NotNull
-    private final List<Phone> phone;
+    @Valid
+    private final List<CreatePhoneDTO> phone;
 
     @NotNull
     private final boolean admin;
 
-    public CreateUserDTO(String name, String cpf, String password, Address address, List<Email> email, List<Phone> phone, boolean admin) {
+    public CreateUserDTO(String name, String cpf, String password, CreateAddressDTO address, List<CreateEmailDTO> email, List<CreatePhoneDTO> phone, boolean admin) {
         this.name = name;
         this.cpf = cpf;
         this.password = password;
@@ -60,15 +65,15 @@ public class CreateUserDTO {
         return password;
     }
 
-    public Address getAddress() {
+    public CreateAddressDTO getAddress() {
         return address;
     }
 
-    public List<Email> getEmail() {
+    public List<CreateEmailDTO> getEmail() {
         return email;
     }
 
-    public List<Phone> getPhone() {
+    public List<CreatePhoneDTO> getPhone() {
         return phone;
     }
 

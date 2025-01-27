@@ -31,6 +31,10 @@ public class Email {
         this.user = user;
     }
 
+    public Email(String email) {
+        this.email = email;
+    }
+
     public UUID getId() {
         return id;
     }
