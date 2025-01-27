@@ -24,7 +24,7 @@ public class AddressService {
 
 
     @Transactional
-    public Address createAddress(CreateAddressDTO data) {
+    public Address createAddress(CreateAddressDTO data, User userData) {
         UUID userId = data.getUserId();
         if(userId == null) {
             throw new IllegalArgumentException("User id must not be null");

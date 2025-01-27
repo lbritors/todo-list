@@ -5,8 +5,7 @@ import java.util.UUID;
 
 public class CreateAddressDTO {
 
-    @NotNull
-    private final Long userId;
+    private final UUID userId;
 
     @NotNull
     private final String street;
@@ -26,7 +25,7 @@ public class CreateAddressDTO {
 
     private final String complement;
 
-    public CreateAddressDTO(Long userId, String street, String city, String zipCode, String state, String district, String complement) {
+    public CreateAddressDTO(UUID userId, String street, String city, String zipCode, String state, String district, String complement) {
         this.street = street;
         this.city = city;
         this.zipCode = zipCode;

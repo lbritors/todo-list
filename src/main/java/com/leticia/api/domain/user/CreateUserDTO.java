@@ -21,7 +21,6 @@ public class CreateUserDTO {
 
     @NotNull
     @Pattern(regexp = "^\\d{11}$")
-    @CPF()
     private final String cpf;
 
     @NotNull
