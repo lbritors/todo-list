@@ -9,11 +9,12 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.util.List;
+import java.util.UUID;
 
 public class UserResponseDTO {
 
     @NotNull
-    private final Long id;
+    private final UUID id;
 
     @NotNull
     @Min(3)
@@ -41,7 +42,7 @@ public class UserResponseDTO {
     @NotNull
     private final boolean admin;
 
-    public UserResponseDTO(Long id, String name, String cpf, String password, Address address, List<Email> email, List<Phone> phone, boolean admin) {
+    public UserResponseDTO(UUID id, String name, String cpf, String password, Address address, List<Email> email, List<Phone> phone, boolean admin) {
         this.name = name;
         this.cpf = cpf;
         this.password = password;
@@ -52,7 +53,7 @@ public class UserResponseDTO {
         this.id = id;
     }
 
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 

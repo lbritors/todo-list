@@ -31,8 +31,13 @@ public class Email {
         this.user = user;
     }
 
-    public Email(String email) {
-        this.email = email;
+
+    public Email(EmailRequestDTO emailRequestDTO) {
+        this.email = emailRequestDTO.getEmail();
+    }
+
+    public Email(EmailResponseDTO emailResponseDTO){
+        this.email = emailResponseDTO.getEmail();
     }
 
     public UUID getId() {

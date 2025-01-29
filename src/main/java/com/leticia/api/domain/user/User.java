@@ -51,15 +51,11 @@ public class User {
         this.email = email;
         this.phone = phone;
     }
-    public User(UUID id, String name, String cpf, String password, Boolean admin, Address address, List<Email> email, List<Phone> phone) {
-        this.id = id;
-        this.name = name;
-        this.cpf = cpf;
-        this.password = password;
-        this.admin = admin;
-        this.address = address;
-        this.email = email;
-        this.phone = phone;
+    public User(UserRequestDTO userRequestDTO) {
+        this.cpf = userRequestDTO.getCpf();
+        this.name = userRequestDTO.getName();
+        this.password = userRequestDTO.getName();
+        this.admin = userRequestDTO.isAdmin();
     }
 
     public UUID getId() {

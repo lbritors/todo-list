@@ -2,26 +2,27 @@ package com.leticia.api.domain.email;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
+import java.util.UUID;
 
 public class EmailResponseDTO {
 
     @NotNull
-    private final Long userId;
+    private final UUID userId;
 
     @NotNull
     @Email
     private final String email;
 
     @NotNull
-    private final Long id;
+    private final UUID id;
 
-    public EmailResponseDTO(String email, Long userId, Long id) {
+    public EmailResponseDTO(String email,  UUID id, UUID userId) {
         this.email = email;
-        this.userId = userId;
         this.id = id;
+        this.userId = userId;
     }
 
-    public Long getUserId() {
+    public UUID getUserId() {
         return userId;
     }
 
@@ -29,7 +30,7 @@ public class EmailResponseDTO {
         return email;
     }
 
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 }

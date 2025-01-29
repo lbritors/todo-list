@@ -35,9 +35,17 @@ public class Phone {
         this.user = user;
     }
 
-    public Phone(String phone, PhoneType type) {
-        this.phone = phone;
-        this.type = type;
+
+    public Phone(PhoneRequestDTO phone) {
+        this.phone = phone.getPhone();
+        this.type = phone.getType();
+    }
+
+    public Phone(PhoneResponseDTO phoneResponseDTO) {
+        this.id = phoneResponseDTO.getId();
+        this.phone = phoneResponseDTO.getPhone();
+        this.type = phoneResponseDTO.getType();
+
     }
 
     public UUID getId() {

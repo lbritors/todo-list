@@ -1,11 +1,9 @@
 package com.leticia.api.domain.address;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
-import java.util.UUID;
 
-public class CreateAddressDTO {
+public class AddressRequestDTO {
 
-    private final UUID userId;
 
     @NotNull
     private final String street;
@@ -25,20 +23,15 @@ public class CreateAddressDTO {
 
     private final String complement;
 
-    public CreateAddressDTO(UUID userId, String street, String city, String zipCode, String state, String district, String complement) {
+    public AddressRequestDTO(String street, String city, String zipCode, String state, String district, String complement) {
         this.street = street;
         this.city = city;
         this.zipCode = zipCode;
         this.state = state;
         this.district = district;
         this.complement = complement;
-        this.userId = userId;
     }
 
-
-    public UUID getUserId() {
-        return userId;
-    }
 
     public String getStreet() {
         return street;

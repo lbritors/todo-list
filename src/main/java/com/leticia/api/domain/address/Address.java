@@ -46,13 +46,24 @@ public class Address {
         this.user = user;
     }
 
-    public Address(String city, String state, String street, String district, String zipCode) {
-        this.city = city;
-        this.state = state;
-        this.street = street;
-        this.district = district;
-        this.zipCode = zipCode;
-    }
+   public Address(AddressRequestDTO addressRequestDTO) {
+        this.street = addressRequestDTO.getStreet();
+        this.city = addressRequestDTO.getCity();
+        this.zipCode = addressRequestDTO.getZipCode();
+        this.state = addressRequestDTO.getState();
+        this.district = addressRequestDTO.getDistrict();
+        this.complement = addressRequestDTO.getComplement();
+   }
+
+   public Address(AddressResponseDTO addressResponseDTO) {
+        this.id = addressResponseDTO.getId();
+        this.zipCode = addressResponseDTO.getZipCode();
+        this.state = addressResponseDTO.getState();
+        this.city = addressResponseDTO.getCity();
+        this.district = addressResponseDTO.getDistrict();
+        this.street = addressResponseDTO.getStreet();
+        this.complement = addressResponseDTO.getComplement();
+   }
 
     public UUID getId() {
         return id;

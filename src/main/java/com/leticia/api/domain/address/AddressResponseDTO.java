@@ -2,14 +2,15 @@ package com.leticia.api.domain.address;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import java.util.UUID;
 
 public class AddressResponseDTO {
 
     @NotNull
-    private final Long id;
+    private final UUID id;
 
     @NotNull
-    private final Long userId;
+    private final UUID userId;
 
     @NotNull
     private final String street;
@@ -29,7 +30,7 @@ public class AddressResponseDTO {
 
     private final String complement;
 
-    public AddressResponseDTO(Long id, Long userId, String street, String city, String zipCode, String state, String district, String complement) {
+    public AddressResponseDTO(UUID id, UUID userId, String street, String city, String zipCode, String state, String district, String complement) {
         this.street = street;
         this.city = city;
         this.zipCode = zipCode;
@@ -40,11 +41,11 @@ public class AddressResponseDTO {
         this.userId = userId;
     }
 
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public Long getUserId() {
+    public UUID getUserId() {
         return userId;
     }
 

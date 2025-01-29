@@ -2,26 +2,22 @@ package com.leticia.api.domain.phone;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
-import java.util.UUID;
 
-public class CreatePhoneDTO {
+public class PhoneRequestDTO {
 
     @NotNull
-    @Pattern(regexp = "\\d{10,11}")
+    @Pattern(regexp = "^\\d{10,11}$")
     private final String phone;
 
     @NotNull
     private final PhoneType type;
 
-    @NotNull
-    private final UUID userId;
 
 
 
-    public CreatePhoneDTO(String phone, PhoneType type, UUID userId) {
+    public PhoneRequestDTO(String phone, PhoneType type) {
         this.phone = phone;
         this.type = type;
-        this.userId = userId;
     }
 
     public String getPhone() {
@@ -32,7 +28,5 @@ public class CreatePhoneDTO {
         return type;
     }
 
-    public UUID getUserId() {
-        return userId;
-    }
+
 }

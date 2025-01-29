@@ -2,22 +2,23 @@ package com.leticia.api.services;
 
 
 import com.leticia.api.domain.address.Address;
-import com.leticia.api.domain.address.CreateAddressDTO;
-import com.leticia.api.domain.email.CreateEmailDTO;
+import com.leticia.api.domain.address.AddressRequestDTO;
+import com.leticia.api.domain.email.EmailRequestDTO;
 import com.leticia.api.domain.email.Email;
-import com.leticia.api.domain.phone.CreatePhoneDTO;
+import com.leticia.api.domain.phone.PhoneRequestDTO;
 import com.leticia.api.domain.phone.Phone;
-import com.leticia.api.domain.user.CreateUserDTO;
+import com.leticia.api.domain.user.UserRequestDTO;
 import com.leticia.api.domain.user.User;
+import com.leticia.api.domain.user.UserResponseDTO;
 import com.leticia.api.exceptions.NotFoundException;
 import com.leticia.api.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -28,21 +29,49 @@ public class UserService {
     @Autowired
     private AddressService addressService;
 
+    @Autowired
+    private PhoneService phoneService;
+
+    @Autowired
+    private EmailService emailService;
+
+
+    private EmailRequestDTO emailRequestDTO;
     @Transactional
-    public User createUser(CreateUserDTO data) {
-        User user = new User();
-        user.setName(data.getName());
-        user.setCpf(data.getCpf());
-        user.setPassword(data.getPassword());
-        user.setAdmin(data.isAdmin());
+    public User createUser(UserRequestDTO data) {
 
-        user = userRepository.save(user);
 
-        CreateAddressDTO address = data.getAddress();
-        if(address != null) {
-            Address addressEntity = addressService.createAddress(address, user);
-            user.setAddress(addressEntity);
-        }
+        User user = new User(data.getCpf(), data.getName(), data.getPassword(), data.isAdmin();
+
+
+
+        System.out.println("USER ID !!!!!" + userId);
+
+//        List<Email> emails = new ArrayList<>();
+//        for(EmailRequestDTO email : data.getEmail()) {
+//            Email emailEntity = new Email(emailRequestDTO);
+//            emailEntity.setUser(user);
+//            emails.add(emailEntity);
+//
+//        }
+//        user.setEmail(emails);
+//        System.out.println("emails impressos" + emails);
+//
+//        List<Phone> phones = new ArrayList<>();
+//        for (PhoneRequestDTO phone : data.getPhone()) {
+//            Phone phoneEntity = new Phone(phone);
+//            phoneEntity.setUser(user);
+//            phones.add(phoneEntity);
+//        }
+//        user.setPhone(phones);
+
+
+
+//        if(address != null) {
+//            Address addressEntity = addressService.createAddress(address, userId);
+//            user.setAddress(addressEntity);
+//        }
+
 
         return user;
 
@@ -57,7 +86,7 @@ public class UserService {
                 orElseThrow(() -> new NotFoundException("User not found! id: " + userId));
     }
 
-    public User updateUser(UUID userId, CreateUserDTO data) {
+    public User updateUser(UserRequestDTO data, UUID userId) {
         User user = userRepository.findById(userId).
                 orElseThrow(() -> new NotFoundException("User not found! id: " + userId));
 
@@ -72,7 +101,7 @@ public class UserService {
     public void deleteUser(UUID userId) {
         User user = userRepository.findById(userId).
                 orElseThrow(() -> new NotFoundException("User not found! id: " + userId));
-        userRepository.delete(user);
+        userRepository.deleteById(userId);
     }
 
 }
