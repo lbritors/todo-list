@@ -1,9 +1,12 @@
 package com.leticia.api.domain.phone;
 
+import lombok.Getter;
+
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.util.UUID;
 
+@Getter
 public class PhoneResponseDTO {
 
     @NotNull
@@ -28,19 +31,4 @@ public class PhoneResponseDTO {
         this.id = id;
     }
 
-    public String getPhone() {
-        return phone;
-    }
-
-    public UUID getUserId() {
-        return userId;
-    }
-
-    public PhoneType getType() {
-        return type;
-    }
-
-    public UUID getId() {
-        return id;
-    }
 }

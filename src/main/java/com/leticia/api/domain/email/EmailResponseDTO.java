@@ -1,9 +1,12 @@
 package com.leticia.api.domain.email;
 
+import lombok.Getter;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
+@Getter
 public class EmailResponseDTO {
 
     @NotNull
@@ -22,15 +25,4 @@ public class EmailResponseDTO {
         this.userId = userId;
     }
 
-    public UUID getUserId() {
-        return userId;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public UUID getId() {
-        return id;
-    }
 }

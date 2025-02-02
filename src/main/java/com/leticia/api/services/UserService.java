@@ -39,42 +39,7 @@ public class UserService {
     private EmailRequestDTO emailRequestDTO;
     @Transactional
     public User createUser(UserRequestDTO data) {
-
-
-        User user = new User(data.getCpf(), data.getName(), data.getPassword(), data.isAdmin();
-
-
-
-        System.out.println("USER ID !!!!!" + userId);
-
-//        List<Email> emails = new ArrayList<>();
-//        for(EmailRequestDTO email : data.getEmail()) {
-//            Email emailEntity = new Email(emailRequestDTO);
-//            emailEntity.setUser(user);
-//            emails.add(emailEntity);
-//
-//        }
-//        user.setEmail(emails);
-//        System.out.println("emails impressos" + emails);
-//
-//        List<Phone> phones = new ArrayList<>();
-//        for (PhoneRequestDTO phone : data.getPhone()) {
-//            Phone phoneEntity = new Phone(phone);
-//            phoneEntity.setUser(user);
-//            phones.add(phoneEntity);
-//        }
-//        user.setPhone(phones);
-
-
-
-//        if(address != null) {
-//            Address addressEntity = addressService.createAddress(address, userId);
-//            user.setAddress(addressEntity);
-//        }
-
-
-        return user;
-
+            return null;
     }
 
     public List<User> getAllUsers() {

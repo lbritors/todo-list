@@ -1,8 +1,11 @@
 package com.leticia.api.domain.user;
 
+import lombok.Getter;
+
 import javax.validation.constraints.*;
 import java.util.UUID;
 
+@Getter
 public class UserRequestDTO {
 
     @NotNull
@@ -36,7 +39,7 @@ public class UserRequestDTO {
     @NotNull
     private final boolean admin;
 
-    public UserRequestDTO(String name, String cpf, String password,  boolean admin) {
+    public UserRequestDTO(String name, String cpf, String password,  boolean admin, UUID id) {
         this.id = id;
         this.name = name;
         this.cpf = cpf;
@@ -44,22 +47,7 @@ public class UserRequestDTO {
         this.admin = admin;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public String getCpf() {
-        return cpf;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public UUID getId() {
-        return id;
-    }
-//    public AddressRequestDTO getAddress() {
+    //    public AddressRequestDTO getAddress() {
 //        return address;
 //    }
 //
@@ -71,7 +59,4 @@ public class UserRequestDTO {
 //        return phone;
 //    }
 
-    public boolean isAdmin() {
-        return admin;
-    }
 }

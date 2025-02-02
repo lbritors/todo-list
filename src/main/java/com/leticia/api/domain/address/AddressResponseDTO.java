@@ -1,9 +1,12 @@
 package com.leticia.api.domain.address;
 
+import lombok.Getter;
+
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.util.UUID;
 
+@Getter
 public class AddressResponseDTO {
 
     @NotNull
@@ -41,35 +44,4 @@ public class AddressResponseDTO {
         this.userId = userId;
     }
 
-    public UUID getId() {
-        return id;
-    }
-
-    public UUID getUserId() {
-        return userId;
-    }
-
-    public String getStreet() {
-        return street;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public String getZipCode() {
-        return zipCode;
-    }
-
-    public String getState() {
-        return state;
-    }
-
-    public String getDistrict() {
-        return district;
-    }
-
-    public String getComplement() {
-        return complement;
-    }
 }

@@ -1,8 +1,11 @@
 package com.leticia.api.domain.phone;
 
+import lombok.Getter;
+
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
+@Getter
 public class PhoneRequestDTO {
 
     @NotNull
@@ -18,14 +21,6 @@ public class PhoneRequestDTO {
     public PhoneRequestDTO(String phone, PhoneType type) {
         this.phone = phone;
         this.type = type;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public PhoneType getType() {
-        return type;
     }
 
 

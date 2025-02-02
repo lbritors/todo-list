@@ -46,7 +46,7 @@ public class EmailService {
     }
 
     public ResponseEntity<List<EmailResponseDTO>> getAllEmails() {
-
+            return null;
     }
 
     public Email getEmailById(UUID emailId) {

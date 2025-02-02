@@ -1,8 +1,11 @@
 package com.leticia.api.domain.email;
 
+import lombok.Getter;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 
+@Getter
 public class EmailRequestDTO {
 
 
@@ -15,11 +18,6 @@ public class EmailRequestDTO {
     public EmailRequestDTO(String email) {
         this.email = email;
 
-    }
-
-
-    public String getEmail() {
-        return email;
     }
 
 

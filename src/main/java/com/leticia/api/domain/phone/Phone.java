@@ -2,11 +2,15 @@ package com.leticia.api.domain.phone;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.leticia.api.domain.user.User;
+import lombok.Getter;
+import lombok.Setter;
 
 
 import javax.persistence.*;
 import java.util.UUID;
 
+@Setter
+@Getter
 @Table(name = "phone")
 @Entity
 public class Phone {
@@ -48,35 +52,4 @@ public class Phone {
 
     }
 
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public PhoneType getType() {
-        return type;
-    }
-
-    public void setType(PhoneType type) {
-        this.type = type;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
 }

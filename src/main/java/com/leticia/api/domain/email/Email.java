@@ -2,11 +2,15 @@ package com.leticia.api.domain.email;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.leticia.api.domain.user.User;
+import lombok.Getter;
+import lombok.Setter;
 
 
 import javax.persistence.*;
 import java.util.UUID;
 
+@Setter
+@Getter
 @Table(name = "email")
 @Entity
 public class Email {
@@ -40,27 +44,4 @@ public class Email {
         this.email = emailResponseDTO.getEmail();
     }
 
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
 }

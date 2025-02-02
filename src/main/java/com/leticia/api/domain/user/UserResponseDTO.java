@@ -3,6 +3,7 @@ package com.leticia.api.domain.user;
 import com.leticia.api.domain.address.Address;
 import com.leticia.api.domain.email.Email;
 import com.leticia.api.domain.phone.Phone;
+import lombok.Getter;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -11,6 +12,7 @@ import javax.validation.constraints.Pattern;
 import java.util.List;
 import java.util.UUID;
 
+@Getter
 public class UserResponseDTO {
 
     @NotNull
@@ -53,35 +55,4 @@ public class UserResponseDTO {
         this.id = id;
     }
 
-    public UUID getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getCpf() {
-        return cpf;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public Address getAddress() {
-        return address;
-    }
-
-    public List<Email> getEmail() {
-        return email;
-    }
-
-    public List<Phone> getPhone() {
-        return phone;
-    }
-
-    public boolean isAdmin() {
-        return admin;
-    }
 }
