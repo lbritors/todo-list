@@ -4,6 +4,7 @@ import com.leticia.api.domain.email.EmailRequestDTO;
 import com.leticia.api.domain.email.Email;
 import com.leticia.api.domain.email.EmailResponseDTO;
 import com.leticia.api.services.EmailService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,13 +22,18 @@ public class EmailController {
     }
 
     @PostMapping
-    public ResponseEntity<Email> createEmail(@Valid @RequestBody EmailRequestDTO data, UUID userId){
-        Email email = emailService.createEmail(data, userId);
-        return ResponseEntity.status(201).  body(email);
+    public ResponseEntity<Object> createEmail(@Valid @RequestBody EmailRequestDTO data, UUID userId){
+
+        try {
+            Email email = emailService.createEmail(data, userId);
+            return ResponseEntity.status(HttpStatus.CREATED).body(email);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
     @GetMapping
-    public ResponseEntity<List<EmailResponseDTO>> getAllEmails(){
+    public ResponseEntity<List<Email>> getAllEmails(){
         return emailService.getAllEmails();
     }
 

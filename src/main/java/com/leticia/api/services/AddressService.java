@@ -42,7 +42,7 @@ public class AddressService {
         try{
             address = addressRepository.saveAndFlush(address);
         }catch (Exception e){
-            throw new RuntimeException("Faile to save address!");
+            throw new RuntimeException("Failed to save address!");
         }
 
         return address;

@@ -45,8 +45,9 @@ public class EmailService {
        return email;
     }
 
-    public ResponseEntity<List<EmailResponseDTO>> getAllEmails() {
-            return null;
+    public ResponseEntity<List<Email>> getAllEmails() {
+        List<Email> emails = emailRepository.findAll();
+        return ResponseEntity.ok(emails);
     }
 
     public Email getEmailById(UUID emailId) {

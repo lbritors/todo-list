@@ -62,4 +62,11 @@ public class User {
         this.admin = userRequestDTO.isAdmin();
     }
 
+    public User(UserResponseDTO userResponseDTO){
+        this.name = userResponseDTO.getName();
+        this.cpf = userResponseDTO.getCpf();
+        this.password = userResponseDTO.getPassword();
+        this.admin = userResponseDTO.isAdmin();
+    }
+
 }

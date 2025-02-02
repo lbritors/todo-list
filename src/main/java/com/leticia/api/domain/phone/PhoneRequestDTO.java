@@ -10,13 +10,13 @@ public class PhoneRequestDTO {
 
     @NotNull
     @Pattern(regexp = "^\\d{10,11}$")
-    private final String phone;
+    private  String phone;
 
     @NotNull
-    private final PhoneType type;
+    private  PhoneType type;
 
 
-
+    public PhoneRequestDTO(){};
 
     public PhoneRequestDTO(String phone, PhoneType type) {
         this.phone = phone;

@@ -24,13 +24,13 @@ public class AddressController {
 
 
     @PostMapping
-    public ResponseEntity<Address> createAddress(@Valid @RequestBody AddressRequestDTO data){
+    public ResponseEntity<Object> createAddress(@Valid @RequestBody AddressRequestDTO data){
 
         try{
             Address address = addressService.createAddress(data);
             return ResponseEntity.status(201) .body(address);
         }catch (Exception e){
-            throw new RuntimeException(e);
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 

@@ -1,30 +1,33 @@
 package com.leticia.api.domain.address;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 @Getter
+@NoArgsConstructor
 public class AddressRequestDTO {
 
 
     @NotNull
-    private final String street;
+    private String street;
 
     @NotNull
-    private final String city;
+    private String city;
 
     @NotNull
     @Pattern( regexp = "^\\d{8}$")
-    private final String zipCode;
+    private String zipCode;
 
     @NotNull
-    private final String state;
+    private String state;
 
     @NotNull
-    private final String district;
+    private String district;
 
-    private final String complement;
+    private String complement;
+
 
     public AddressRequestDTO(String street, String city, String zipCode, String state, String district, String complement) {
         this.street = street;

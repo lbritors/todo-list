@@ -11,10 +11,10 @@ public class EmailRequestDTO {
 
     @NotNull
     @Email
-    private final String email;
+    private  String email;
 
 
-
+    public EmailRequestDTO(){};
     public EmailRequestDTO(String email) {
         this.email = email;
 
