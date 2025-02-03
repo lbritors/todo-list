@@ -14,6 +14,7 @@ import com.leticia.api.exceptions.NotFoundException;
 import com.leticia.api.exceptions.UserAlreadyExistsException;
 import com.leticia.api.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -28,6 +29,10 @@ public class UserService {
     private final AddressService addressService;
     private final PhoneService phoneService;
     private final EmailService emailService;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
 
     @Autowired
     public UserService(UserRepository userRepository, AddressService addressService,
@@ -47,10 +52,12 @@ public class UserService {
             throw new UserAlreadyExistsException();
         }
 
+        String password = passwordEncoder.encode(data.getPassword());
+
         User user = new User();
         user.setCpf(data.getCpf());
         user.setName(data.getName());
-        user.setPassword(data.getPassword());
+        user.setPassword(password);
         user.setAdmin(data.isAdmin());
 
         Address address = new Address(data.getAddress());
