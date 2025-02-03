@@ -12,6 +12,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.naming.AuthenticationException;
+import java.time.Duration;
+import java.time.Instant;
 
 @Service
 public class AuthService {
@@ -38,7 +40,8 @@ public class AuthService {
         }
 
         Algorithm algorithm = Algorithm.HMAC256(secretKey);
-        return JWT.create().withIssuer("seatech").withSubject(user.getId().toString()).sign(algorithm);
+        return JWT.create().withIssuer("seatech").withExpiresAt(Instant.now().plus(Duration.ofHours(2)))
+                .withSubject(user.getId().toString()).withClaim("role", user.getRole()).sign(algorithm);
 
     }
 

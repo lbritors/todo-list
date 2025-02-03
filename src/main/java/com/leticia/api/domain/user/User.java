@@ -69,4 +69,8 @@ public class User {
         this.admin = userResponseDTO.isAdmin();
     }
 
+    public String getRole() {
+        return this.admin ? "ROLE_ADMIN" : "ROLE_USER";
+    }
+
 }
