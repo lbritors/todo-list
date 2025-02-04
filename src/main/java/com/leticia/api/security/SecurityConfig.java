@@ -3,6 +3,7 @@ package com.leticia.api.security;
 
 import com.leticia.api.domain.user.User;
 import com.leticia.api.repositories.UserRepository;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.web.filter.CorsFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -29,6 +30,9 @@ public class SecurityConfig {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    SecurityFilter securityFilter;
+
     @Bean
     UserDetailsService userDetailsService() {
         return cpf -> {
@@ -52,13 +56,15 @@ public class SecurityConfig {
                         .and()
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> {
-                    auth.antMatchers(HttpMethod.POST, "/auth/users").permitAll();
+                    auth.antMatchers(HttpMethod.POST, "/auth/user").permitAll();
                     auth.antMatchers(HttpMethod.POST, "/users").permitAll();
                     auth.antMatchers(HttpMethod.GET,"/users/**").hasAnyRole("USER", "ADMIN");
                     auth.antMatchers(HttpMethod.PUT, "/users/**").hasRole("ADMIN");
                     auth.antMatchers(HttpMethod.DELETE, "/users/**").hasRole("ADMIN");
 
-                }).httpBasic();
+                })
+                .addFilterBefore(securityFilter, BasicAuthenticationFilter.class)
+                .httpBasic();
 
         return http.build();
     }
