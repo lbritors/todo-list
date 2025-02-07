@@ -4,6 +4,7 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import java.util.UUID;
 
 @Getter
 @NoArgsConstructor
@@ -28,14 +29,18 @@ public class AddressRequestDTO {
 
     private String complement;
 
+    @NotNull
+    private UUID userId;
 
-    public AddressRequestDTO(String street, String city, String zipCode, String state, String district, String complement) {
+
+    public AddressRequestDTO(String street, String city, String zipCode, String state, String district, String complement, UUID userId) {
         this.street = street;
         this.city = city;
         this.zipCode = zipCode;
         this.state = state;
         this.district = district;
         this.complement = complement;
+        this.userId = userId;
     }
 
 

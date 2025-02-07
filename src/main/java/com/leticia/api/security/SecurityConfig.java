@@ -3,6 +3,7 @@ package com.leticia.api.security;
 
 import com.leticia.api.domain.user.User;
 import com.leticia.api.repositories.UserRepository;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.web.filter.CorsFilter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.UUID;
 
 
 @Configuration
@@ -35,15 +37,15 @@ public class SecurityConfig {
 
     @Bean
     UserDetailsService userDetailsService() {
-        return cpf -> {
-            User user = userRepository.findUserByCpf(cpf);
+        return id -> {
+            User user = userRepository.findById(UUID.fromString(id)).orElse(null);
             if(user == null) {
                 throw new UsernameNotFoundException("User not found");
             }
             return org.springframework.security.core.userdetails.User
-                    .withUsername(user.getCpf())
+                    .withUsername(user.getId().toString())
                     .password(user.getPassword())
-                    .roles(user.getRole()).build();
+                    .authorities(new SimpleGrantedAuthority(user.getRole())).build();
 
         };
     }
@@ -57,10 +59,25 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> {
                     auth.antMatchers(HttpMethod.POST, "/auth/user").permitAll();
-                    auth.antMatchers(HttpMethod.POST, "/users").permitAll();
-                    auth.antMatchers(HttpMethod.GET,"/users/**").hasAnyRole("USER", "ADMIN");
-                    auth.antMatchers(HttpMethod.PUT, "/users/**").hasRole("ADMIN");
-                    auth.antMatchers(HttpMethod.DELETE, "/users/**").hasRole("ADMIN");
+                    auth.antMatchers(HttpMethod.POST, "/user").permitAll();
+                    auth.antMatchers(HttpMethod.GET,"/user/**").hasAnyRole("USER", "ADMIN");
+                    auth.antMatchers(HttpMethod.PUT, "/user/**").hasRole("ADMIN");
+                    auth.antMatchers(HttpMethod.DELETE, "/user/**").hasRole("ADMIN");
+
+                    auth.antMatchers(HttpMethod.GET, "/address/**").hasAnyRole("USER", "ADMIN");
+                    auth.antMatchers(HttpMethod.POST, "/address").hasAnyRole("ADMIN");
+                    auth.antMatchers(HttpMethod.PUT, "/address/**").hasRole("ADMIN");
+                    auth.antMatchers(HttpMethod.DELETE, "/address/**").hasRole("ADMIN");
+
+                    auth.antMatchers(HttpMethod.GET, "/email/**").hasAnyRole("USER", "ADMIN");
+                    auth.antMatchers(HttpMethod.POST, "/email").hasRole("ADMIN");
+                    auth.antMatchers(HttpMethod.PUT, "/email/**").hasRole("ADMIN");
+                    auth.antMatchers(HttpMethod.DELETE, "/email/**").hasRole("ADMIN");
+
+                    auth.antMatchers(HttpMethod.GET, "/phone/**").hasAnyRole("USER", "ADMIN");
+                    auth.antMatchers(HttpMethod.POST, "/phone").hasRole("ADMIN");
+                    auth.antMatchers(HttpMethod.PUT, "/phone/**").hasRole("ADMIN");
+                    auth.antMatchers(HttpMethod.DELETE, "/phone/**").hasRole("ADMIN");
 
                 })
                 .addFilterBefore(securityFilter, BasicAuthenticationFilter.class)

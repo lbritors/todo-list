@@ -4,6 +4,7 @@ import com.leticia.api.domain.email.EmailRequestDTO;
 import com.leticia.api.domain.email.Email;
 import com.leticia.api.domain.email.EmailResponseDTO;
 import com.leticia.api.services.EmailService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,16 +17,14 @@ import java.util.UUID;
 @RequestMapping("/email")
 public class EmailController {
 
-    private final EmailService emailService;
-    public EmailController(EmailService emailService){
-        this.emailService = emailService;
-    }
+    @Autowired
+    private  EmailService emailService;
 
     @PostMapping
-    public ResponseEntity<Object> createEmail(@Valid @RequestBody EmailRequestDTO data, UUID userId){
+    public ResponseEntity<Object> createEmail(@Valid @RequestBody EmailRequestDTO data){
 
         try {
-            Email email = emailService.createEmail(data, userId);
+            Email email = emailService.createEmail(data);
             return ResponseEntity.status(HttpStatus.CREATED).body(email);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
@@ -44,7 +43,7 @@ public class EmailController {
             Email email = emailService.getEmailById(id);
             return ResponseEntity.status(200).body(email);
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException(e.getMessage());
         }
 
     }
@@ -56,17 +55,20 @@ public class EmailController {
             email = emailService.updateEmail(id, data);
             return ResponseEntity.status(200).body(email);
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException(e.getMessage());
         }
     }
 
     @DeleteMapping("/{id}")
-    public void deleteEmail(@PathVariable UUID id){
+    public ResponseEntity<Object> deleteEmail(@PathVariable UUID id){
 
         try{
             emailService.deleteEmail(id);
-        }catch (Exception e){
-            throw new RuntimeException(e);
+            return ResponseEntity.accepted().build();
+        }catch (IllegalStateException e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
     }
 

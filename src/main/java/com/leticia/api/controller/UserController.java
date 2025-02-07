@@ -5,6 +5,8 @@ import com.leticia.api.domain.user.User;
 import com.leticia.api.domain.user.UserResponseDTO;
 import com.leticia.api.services.UserService;
 import javassist.NotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,20 +16,23 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/user")
 public class UserController {
 
-    private final UserService userService;
+    @Autowired
+    private  UserService userService;
 
-    public UserController(UserService userService) {
-        this.userService = userService;
-    }
+
 
     @PostMapping
     public ResponseEntity<Object> createUser(@Valid  @RequestBody UserRequestDTO data) {
 
-        User user = userService.createUser(data);
-        return ResponseEntity.ok().body(user);
+        try {
+            User user = userService.createUser(data);
+            return ResponseEntity.ok().body(user);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
+        }
     }
 
     @GetMapping
@@ -43,9 +48,9 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<User> getUserById(@PathVariable UUID userId ) {
+    public ResponseEntity<User> getUserById(@PathVariable("id") UUID id) {
         try{
-            User user = userService.getUserById((userId));
+            User user = userService.getUserById((id));
             return ResponseEntity.ok(user);
         }catch (Exception e) {
             throw new RuntimeException();
@@ -63,8 +68,14 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
-    public void deleteUser(@PathVariable UUID userId) {
-        userService.deleteUser(userId);
+    public ResponseEntity<Object> deleteUser(@PathVariable UUID id) {
+        try {
+            userService.deleteUser(id);
+            return ResponseEntity.accepted().build();
+
+        }catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
 
     }
 

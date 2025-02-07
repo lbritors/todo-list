@@ -1,34 +1,38 @@
 package com.leticia.api.domain.phone;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.util.UUID;
 
+@NoArgsConstructor
 @Getter
 public class PhoneResponseDTO {
 
     @NotNull
     @Pattern(regexp = "\\d{10,11}")
-    private final String phone;
-
-    @NotNull
-    private final UUID userId;
+    private String phone;
 
     @NotNull
     @Pattern(regexp = "comercial|residencial|celular")
-    private final PhoneType type;
+    private PhoneType type;
 
     @NotNull
-    private final UUID id;
+    private  UUID id;
+
+    private UUID userId;
 
 
-    public PhoneResponseDTO(String phone, UUID userId, PhoneType type, UUID id) {
+    public PhoneResponseDTO(String phone, PhoneType type, UUID id, UUID userId) {
         this.phone = phone;
-        this.userId = userId;
         this.type = type;
         this.id = id;
+        this.userId = userId;
     }
 
+
+    public PhoneResponseDTO(Phone phone) {
+    }
 }

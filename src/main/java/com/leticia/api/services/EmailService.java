@@ -29,11 +29,11 @@ public class EmailService {
 
 
     @Transactional
-    public Email createEmail(EmailRequestDTO data, UUID userId) {
-        User user = userRepository.findById(userId).orElseThrow(() -> new NotFoundException("User not found!"));
+    public Email createEmail(EmailRequestDTO data) {
+        User user = userRepository.findById(data.getUserId()).orElseThrow(() -> new NotFoundException("User not found!"));
 
        Email email= new Email();
-       email.setEmail(email.getEmail());
+       email.setEmail(data.getEmail());
        email.setUser(user);
 
        try {
@@ -69,7 +69,16 @@ public class EmailService {
         if (email.getId() == null) {
             throw new NotFoundException("Email not found! id: " + emailId);
         }
-        emailRepository.deleteById(emailId);
+
+        User user = email.getUser();
+
+        if(user.getEmail().size() <= 1) {
+            throw new IllegalStateException(("User must have at least one email"));
+        }
+        user.getEmail().remove(email);
+        userRepository.save(user);
+
+        emailRepository.delete(email);
     }
 
 

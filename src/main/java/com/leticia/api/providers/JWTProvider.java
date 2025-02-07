@@ -22,11 +22,11 @@ public class JWTProvider {
         try {
             DecodedJWT jwt = JWT.require(algorithm).build().verify(token);
             String subject = jwt.getSubject();
+            String role = jwt.getClaim("role").asString();
 
-            List<String> roles = jwt.getClaim("roles").asList(String.class);
             Map<String, Object> claims = new HashMap<>();
             claims.put("subject", subject);
-            claims.put("roles", roles);
+            claims.put("role", role);
             return  claims;
         } catch (JWTVerificationException e) {
             e.printStackTrace();

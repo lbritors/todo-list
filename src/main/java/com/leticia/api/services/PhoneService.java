@@ -27,13 +27,14 @@ public class PhoneService {
     private UserRepository userRepository;
 
     @Transactional
-    public Phone createPhone(PhoneRequestDTO data, UUID userId) {
+    public Phone createPhone(PhoneRequestDTO data) {
 
-        User user = userRepository.findById(userId).orElseThrow(() -> new NotFoundException("User not found!"));
+        User user = userRepository.findById(data.getUserId()).orElseThrow(() -> new NotFoundException("User not found!"));
 
         Phone phone = new Phone();
         phone.setUser(user);
         phone.setType(data.getType());
+        phone.setPhone(data.getPhone());
 
         try{
             phone = phoneRepository.save(phone);
@@ -52,7 +53,9 @@ public class PhoneService {
     }
 
     public Phone getPhoneById(UUID id) {
-        return phoneRepository.getById(id);
+
+        return phoneRepository.findById(id).orElseThrow(() -> new NotFoundException("Phone not found!"));
+
     }
 
     @Transactional
@@ -66,7 +69,18 @@ public class PhoneService {
     }
 
     public void deletePhone(UUID id){
-        phoneRepository.deleteById(id);
+        Phone phone = phoneRepository.findById(id).orElseThrow(() -> new NotFoundException("Phone not found!"));
+
+        User user = phone.getUser();
+        if(user.getPhone().size() <= 1) {
+            throw new IllegalStateException("User must have at least one phone");
+        }
+
+        user.getPhone().remove(phone);
+        userRepository.save(user);
+
+        phoneRepository.delete(phone);
+
     }
 
     public void normalizePhoneTypes(Phone phone) {

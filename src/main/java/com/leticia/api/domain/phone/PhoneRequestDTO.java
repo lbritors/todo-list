@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import java.util.UUID;
 
 @Getter
 @NoArgsConstructor
@@ -17,10 +18,13 @@ public class PhoneRequestDTO {
     @NotNull
     private  PhoneType type;
 
+    @NotNull
+    private UUID userId;
 
-    public PhoneRequestDTO(String phone, PhoneType type) {
+    public PhoneRequestDTO(String phone, PhoneType type, UUID userId) {
         this.phone = phone;
         this.type = type;
+        this.userId = userId;
     }
 
 

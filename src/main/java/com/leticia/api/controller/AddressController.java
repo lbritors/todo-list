@@ -5,6 +5,7 @@ import com.leticia.api.services.AddressService;
 import com.leticia.api.services.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.leticia.api.domain.address.Address;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,11 +17,9 @@ import java.util.UUID;
 @RequestMapping("/address")
 public class AddressController {
 
-    private final AddressService addressService;
+    @Autowired
+    private  AddressService addressService;
 
-    public AddressController(AddressService addressService){
-        this.addressService = addressService;
-    }
 
 
     @PostMapping
@@ -64,10 +63,14 @@ public class AddressController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Address> deleteAddress(@PathVariable UUID id){
+    public ResponseEntity<Object> deleteAddress(@PathVariable UUID id){
 
-           Address address = addressService.deleteAddress(id);
-           return ResponseEntity.ok().body(address);
+        try {
+            Address address = addressService.deleteAddress(id);
+            return ResponseEntity.ok("Address deleted successfully");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
 
     }
 

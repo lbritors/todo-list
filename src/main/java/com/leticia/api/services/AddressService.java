@@ -2,6 +2,7 @@ package com.leticia.api.services;
 
 import com.leticia.api.domain.address.Address;
 import com.leticia.api.domain.address.AddressRequestDTO;
+import com.leticia.api.domain.user.User;
 import com.leticia.api.exceptions.NotFoundException;
 import com.leticia.api.repositories.AddressRepository;
 import com.leticia.api.repositories.UserRepository;
@@ -24,11 +25,9 @@ public class AddressService {
 
     @Transactional
     public Address createAddress(AddressRequestDTO data) {
-
-        //User user = userRepository.findById(userId).orElseThrow(() -> new NotFoundException("User not found!"));
+        User user = userRepository.findById(data.getUserId()).orElseThrow(() -> new NotFoundException("User not found"));
 
         Address address = new Address();
-        //address.setUser(user);
         address.setStreet(data.getStreet());
         address.setCity(data.getCity());
         address.setZipCode(data.getZipCode());
@@ -62,11 +61,7 @@ public class AddressService {
     public Address updateAddress(UUID addressId, AddressRequestDTO data) {
         Address address = addressRepository.findById(addressId)
                 .orElseThrow(() -> new NotFoundException("Address not found! id: " + addressId));
-//        if(data.getUserId() != null) {
-//            User user = userRepository.findById(data.getUserId())
-//                    .orElseThrow(() -> new NotFoundException("User not found! id: " + data.getUserId()));
-//            address.setUser(user);
-//        }
+
 
         if(data.getStreet() != null) address.setStreet(data.getStreet());
         if(data.getCity() != null) address.setCity(data.getCity());
@@ -86,6 +81,7 @@ public class AddressService {
                 .orElseThrow(() -> new NotFoundException("Address not found! id: " + addressId));
 
         addressRepository.delete(address);
+        addressRepository.flush();
         return address;
     }
 
